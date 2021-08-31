@@ -43,6 +43,7 @@ export class Console {
    */
   public success(text: string) {
     this.write(chalk.green.bold(`✔ ${text}`))
+    this.write("\n")
   }
 
   /**
