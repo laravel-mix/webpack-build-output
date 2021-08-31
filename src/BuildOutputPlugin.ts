@@ -4,7 +4,7 @@ import { Options } from "./Options"
 import { StatsTable } from "./StatsTable"
 
 export class BuildOutputPlugin {
-  constructor(private options: Options, private console: ConsoleOutput = new Console(process.stdout)) {}
+  constructor(private options: Options = {}, private console: ConsoleOutput = new Console(process.stdout)) {}
 
   public apply(compiler: Compiler) {
     compiler.hooks.done.tap("BuildOutputPlugin", (stats) => this.render(stats))

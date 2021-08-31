@@ -1,5 +1,5 @@
 {
-  "name": "@laravel-mix/better-webpack-output",
+  "name": "@laravel-mix/webpack-build-output",
   "version": "0.0.1",
   "main": "dist/index.js",
   "license": "MIT",
