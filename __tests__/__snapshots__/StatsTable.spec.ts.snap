@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The build output table renders as expected 1`] = `
+"
+┌───────────────────────────────────────────────────────────────────┬──────────┐
+│                                                              File │ Size     │
+├───────────────────────────────────────────────────────────────────┼──────────┤
+│                           foo/foo/foo/foo/foo/foo/foo/css/app.css │ 0.977 KB │
+│                     foo/foo/foo/foo/foo/foo/foo/css/extracted.css │ 1.46 KB  │
+│                             foo/foo/foo/foo/foo/foo/foo/js/app.js │ 1.17 KB  │
+│                             foo/foo/foo/foo/foo/foo/foo/js/bar.js │ 1.17 KB  │
+└───────────────────────────────────────────────────────────────────┴──────────┘
+"
+`;

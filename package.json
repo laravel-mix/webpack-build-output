@@ -1,0 +1,31 @@
+{
+  "name": "@laravel-mix/better-webpack-output",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest --runInBand",
+    "build:js": "npx rollup -c",
+    "build:types": "npx tsc --emitDeclarationOnly",
+    "build": "npm run build:js && npm run build:types"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "cli-table3": "^0.6.0",
+    "strip-ansi": "^6.0.0"
+  },
+  "peerDependencies": {
+    "webpack": "^5.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^8.2.5",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.7.8",
+    "jest": "^27.1.0",
+    "rollup": "^2.56.3",
+    "ts-jest": "^27.0.5",
+    "tslib": "^2.3.1",
+    "typescript": "^4.4.2",
+    "webpack": "^5.0"
+  }
+}
