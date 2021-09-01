@@ -38,3 +38,5 @@ export class BuildOutputPlugin {
     }
   }
 }
+
+export default BuildOutputPlugin
