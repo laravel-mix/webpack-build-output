@@ -9,9 +9,5 @@ import { Options } from "./Options"
  * @internal
  **/
 export class Configuration {
-  constructor(
-    public options: Options,
-    public colors: Colors,
-    public console?: ConsoleOutput,
-  ) {}
+  constructor(public options: Options, public colors: Colors, public console?: ConsoleOutput) {}
 }

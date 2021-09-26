@@ -17,11 +17,9 @@ export function formatSize(size: number): string {
   const abbreviations = ["bytes", "KB", "MB", "GB", "TB"]
 
   const index = Math.floor(Math.log(size) / Math.log(10 ** 3))
-  const amount = size / (1000 ** index)
+  const amount = size / 1000 ** index
 
-  const amountStr = index === 0
-    ? `${amount}`
-    : `${amount.toPrecision(3)}`
+  const amountStr = index === 0 ? `${amount}` : `${amount.toPrecision(3)}`
 
   return `${amountStr} ${abbreviations[index]}`
 }

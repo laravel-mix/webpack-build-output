@@ -40,9 +40,9 @@ export function truncate(str: string, options: TruncateOptions) {
   }
 
   if (options.location === "middle") {
-    result.push(...strChars.slice(0, maxLength/2))
+    result.push(...strChars.slice(0, maxLength / 2))
     result.push(...omissionChars)
-    result.push(...strChars.slice(strChars.length - maxLength/2))
+    result.push(...strChars.slice(strChars.length - maxLength / 2))
   }
 
   if (options.location === "end") {
@@ -50,5 +50,5 @@ export function truncate(str: string, options: TruncateOptions) {
     result.push(...omissionChars)
   }
 
-  return result.join('')
+  return result.join("")
 }

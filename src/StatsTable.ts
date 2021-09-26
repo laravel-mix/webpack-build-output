@@ -56,10 +56,7 @@ export class StatsTable {
     const tableConfig: TableUserConfig = {
       border: getBorderCharacters("norc"),
 
-      columns: [
-        {width: 35, alignment: "right"},
-        {alignment: "left"},
-      ],
+      columns: [{ width: 35, alignment: "right" }, { alignment: "left" }],
 
       drawHorizontalLine(index) {
         // Top of table == index 0
@@ -71,7 +68,7 @@ export class StatsTable {
     }
 
     const toTable = () => table(rows, tableConfig).trim()
-    const calculateWidth = () => stripAnsi(toTable().split('\n')[0]).length
+    const calculateWidth = () => stripAnsi(toTable().split("\n")[0]).length
 
     const targetWidth = this.options.width ?? this.console.width
     const maxWidth = this.options.maxWidth ?? Infinity

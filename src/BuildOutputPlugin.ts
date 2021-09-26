@@ -17,15 +17,12 @@ export class BuildOutputPlugin {
 
   public constructor(options: Options, console?: ConsoleOutput)
 
-  public constructor(
-    options?: Options | Configuration,
-    console?: ConsoleOutput,
-  ) {
-    if (! (options instanceof Configuration)) {
+  public constructor(options?: Options | Configuration, console?: ConsoleOutput) {
+    if (!(options instanceof Configuration)) {
       options = this.resolveConfig(options ?? {}, console)
     }
 
-    if (! options.console) {
+    if (!options.console) {
       throw new Error("Custom configurations must provide a console writer to use")
     }
 
@@ -73,10 +70,7 @@ export class BuildOutputPlugin {
 
   /** @internal */
   private resolveConfig(options: Options, console?: ConsoleOutput) {
-    const config = new Configuration(
-      options,
-      createColors(options.colors)
-    )
+    const config = new Configuration(options, createColors(options.colors))
 
     config.console = console ?? new Console(config, process.stdout)
 
