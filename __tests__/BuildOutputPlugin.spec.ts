@@ -1,4 +1,5 @@
 import path from "path"
+import { Compiler } from "webpack"
 import { BuildOutputPlugin } from "../src"
 import { build } from "./helpers"
 import { Tty } from "./Tty"
@@ -9,21 +10,6 @@ test("Can use the build output plugin", async () => {
 
   // TODO: Use a custom buffering stream or console instead of capturing stdout
   const tty = new Tty(process.stdout).capture()
-
-  const plugin = new BuildOutputPlugin({
-    colors: false,
-    header: "result table",
-  })
-
-  const oldRender = plugin.render.bind(plugin)
-
-  plugin.render = (stats) => {
-    const now = +new Date
-    stats.compilation.startTime = now
-    stats.compilation.endTime = now+100
-
-    return oldRender(stats)
-  }
 
   const result = await build({
     entry: {
@@ -36,7 +22,21 @@ test("Can use the build output plugin", async () => {
     },
 
     plugins: [
-      plugin,
+      // Alter the stats seen by the build output plugin
+      {
+        apply(compiler: Compiler) {
+          compiler.hooks.done.tap("__tests__", (stats) => {
+            const now = +new Date
+            stats.compilation.startTime = now
+            stats.compilation.endTime = now+100
+          })
+        },
+      },
+
+      new BuildOutputPlugin({
+        colors: false,
+        header: "result table",
+      }),
     ]
   })
 

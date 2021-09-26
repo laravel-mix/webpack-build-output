@@ -33,13 +33,14 @@ export class BuildOutputPlugin {
     this.configuration = options
   }
 
+  /**
+   * Attach the necessary compiler hooks to render the table after compilation has finished
+   */
   public apply(compiler: Compiler) {
     compiler.hooks.done.tap("BuildOutputPlugin", (stats) => this.render(stats))
   }
 
-  // Public only for testing purposes
-  /** @private */
-  public render(stats: Stats) {
+  private render(stats: Stats) {
     if (stats.hasErrors()) {
       return false
     }
