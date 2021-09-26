@@ -5,7 +5,12 @@ export default {
   output: {
     dir: "dist",
     format: "cjs",
+    exports: "named",
   },
-  plugins: [typescript()],
-  external: ["chalk", "cli-table3", "strip-ansi", "readline"],
+  plugins: [
+    typescript({
+      target: "es2018",
+    })
+  ],
+  external: ["nanocolors", "table", "strip-ansi", "readline"],
 }

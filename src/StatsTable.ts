@@ -1,39 +1,33 @@
-import chalk from "chalk"
-import Table from "cli-table3"
 import stripAnsi from "strip-ansi"
+import { getBorderCharacters, table, TableUserConfig } from "table"
 import { StatsCompilation } from "webpack"
-import { formatSize, monkeyPatchTruncate } from "./Utils"
-import { Options } from "./Options"
-import { ConsoleOutput } from "./Console"
+import { formatSize } from "./Utils"
+import { Configuration } from "./Configuration"
+import { truncate } from "./Truncate"
 
+/**
+ * Generate a table representing assets from webpack stats
+ *
+ * @internal
+ **/
 export class StatsTable {
-  constructor(private options: Options, private console: ConsoleOutput) {}
+  constructor(private configuration: Configuration) {}
 
   /**
-   * Print the stats table to the screen
+   * Return a table representing the compilation stats as a string
    */
   public render(data: StatsCompilation): string {
-    const table = new Table({
-      head: [chalk.bold("File"), chalk.bold("Size")],
-      colWidths: [35],
-      colAligns: ["right"],
-      style: {
-        head: [],
-        compact: true,
-      },
-    })
+    const rows: string[][] = []
+
+    rows.push([this.colors.bold("File"), this.colors.bold("Size")])
 
     const assets = this.sortAssets(data)
 
     for (const asset of assets) {
-      table.push([chalk.green(asset.name), formatSize(asset.size)])
+      rows.push([this.colors.green(asset.name), formatSize(asset.size)])
     }
 
-    this.extendTableWidth(table, this.options.width ?? this.console.width, this.options.maxWidth ?? Infinity)
-
-    monkeyPatchTruncate()
-
-    return table.toString()
+    return this.createTable(rows)
   }
 
   private sortAssets(data: StatsCompilation) {
@@ -46,36 +40,56 @@ export class StatsTable {
     return assets
   }
 
-  /**
-   * Extend the width of the table
-   *
-   * Currently only increases the file column size
-   */
-  private extendTableWidth(table: Table.Table, targetWidth: number, maxWidth: number) {
-    if (!targetWidth) {
-      return
-    }
-
-    const tableWidth = this.calculateWidth(table)
-    const fileColIncrease = Math.min(targetWidth - tableWidth, maxWidth - tableWidth)
-
-    if (fileColIncrease <= 0) {
-      return
-    }
-
-    // @ts-ignore
-    table.options.colWidths[0] += fileColIncrease
+  private get colors() {
+    return this.configuration.colors
   }
 
-  /**
-   * Calculate the width of the CLI Table
-   *
-   * `table.width` does not report the correct width
-   * because it includes ANSI control characters
-   */
-  private calculateWidth(table: Table.Table) {
-    const firstRow = table.toString().split("\n")[0]
+  private get options() {
+    return this.configuration.options
+  }
 
-    return stripAnsi(firstRow).length
+  private get console() {
+    return this.configuration.console!
+  }
+
+  private createTable(rows: string[][]) {
+    const tableConfig: TableUserConfig = {
+      border: getBorderCharacters("norc"),
+
+      columns: [
+        {width: 35, alignment: "right"},
+        {alignment: "left"},
+      ],
+
+      drawHorizontalLine(index) {
+        // Top of table == index 0
+        // Bottom table header == index 1
+        // Bottom table == index rows.length
+
+        return index <= 1 || index === rows.length
+      },
+    }
+
+    const toTable = () => table(rows, tableConfig).trim()
+    const calculateWidth = () => stripAnsi(toTable().split('\n')[0]).length
+
+    const targetWidth = this.options.width ?? this.console.width
+    const maxWidth = this.options.maxWidth ?? Infinity
+
+    let currentWidth = calculateWidth()
+    let fileColIncrease = Math.min(targetWidth - currentWidth, maxWidth - currentWidth)
+
+    // If the table doesn't fit within the desired width then we increase the width of the file path column
+    if (fileColIncrease > 0) {
+      // @ts-ignore
+      tableConfig.columns![0]!.width! += fileColIncrease
+    }
+
+    // start-truncate the path names
+    for (const row of rows) {
+      row[0] = truncate(row[0], { length: tableConfig.columns![0]!.width!, location: "start" })
+    }
+
+    return toTable()
   }
 }

@@ -1,8 +1,13 @@
+/**
+ * Control what and how the table is written to the console
+ *
+ * @public
+ **/
 export interface Options {
   /**
    * Clear the console when rendering the table
    *
-   * Defaults to `true`
+   * Defaults to `false`
    */
   clearConsole?: boolean
 
@@ -33,4 +38,11 @@ export interface Options {
    * Defaults to `Infinity`
    */
   maxWidth?: number
+
+  /**
+   * Whether or not to use colors when printing
+   *
+   * Defaults to `undefined` which auto-detects colors
+   */
+  colors?: true | false
 }

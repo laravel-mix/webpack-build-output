@@ -1,7 +1,12 @@
-import chalk from "chalk"
 import readline from "readline"
 import { WriteStream } from "tty"
+import { Configuration } from "./Configuration"
 
+/**
+ * Represents the capabilities to read information about and write data to a console/terminal/etc…
+ *
+ * @public
+ **/
 export interface ConsoleOutput {
   get width(): number
   get height(): number
@@ -12,8 +17,13 @@ export interface ConsoleOutput {
   write(str: string): void
 }
 
+/**
+ * The default internal console implementation that writes to a given stream like `process.stdout`
+ *
+ * @internal
+ **/
 export class Console {
-  constructor(private stream: WriteStream) {}
+  constructor(private configuration: Configuration, private stream: WriteStream) {}
 
   public get width() {
     return this.stream.columns
@@ -34,7 +44,7 @@ export class Console {
    */
   public heading(text: string) {
     this.write("\n")
-    this.write(chalk.bgBlue.white.bold(this.section(text)))
+    this.write(this.colors.bgBlue(this.colors.bgBlue(this.colors.bold(this.section(text)))))
     this.write("\n")
   }
 
@@ -42,7 +52,7 @@ export class Console {
    * Print a success message
    */
   public success(text: string) {
-    this.write(chalk.green.bold(`✔ ${text}`))
+    this.write(this.colors.green(this.colors.bold(`✔ ${text}`)))
     this.write("\n")
   }
 
@@ -51,6 +61,10 @@ export class Console {
    */
   public write(str: string) {
     this.stream.write(str)
+  }
+
+  private get colors() {
+    return this.configuration.colors
   }
 
   /**

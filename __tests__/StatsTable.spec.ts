@@ -1,20 +1,36 @@
-import colors from "colors/safe"
 import { StatsAsset } from "webpack"
-
 import { StatsTable } from "../src/StatsTable"
-import { FakeConsole } from "./FakeConsole"
+import { createFakeConfig } from "./Fake"
 
-beforeEach(() => {
-  colors.disable()
-  process.env.FORCE_COLOR = "0"
+test("The stats table renders as expected", () => {
+  const table = new StatsTable(createFakeConfig())
+
+  const output = table.render({
+    assets: [
+      asset({
+        name: "foo/foo/foo/foo/foo/foo/foo/js/app.js",
+        size: 1200,
+      }),
+      asset({
+        name: "foo/foo/foo/foo/foo/foo/foo/js/bar.js",
+        size: 1200,
+      }),
+      asset({
+        name: "foo/foo/foo/foo/foo/foo/foo/css/extracted.css",
+        size: 1500,
+      }),
+      asset({
+        name: "foo/foo/foo/foo/foo/foo/foo/css/app.css",
+        size: 1000,
+      }),
+    ],
+  })
+
+  expect(`\n${output}\n`).toMatchSnapshot()
 })
 
-afterEach(() => {
-  delete process.env.FORCE_COLOR
-})
-
-test("The build output table renders as expected", () => {
-  const table = new StatsTable({ showRelated: true }, new FakeConsole(80, 200))
+test("The stats table can be given a maximum length", () => {
+  const table = new StatsTable(createFakeConfig({ maxWidth: 50 }))
 
   const output = table.render({
     assets: [

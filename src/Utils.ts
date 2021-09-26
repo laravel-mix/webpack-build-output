@@ -1,8 +1,13 @@
-import stripAnsi from "strip-ansi"
-
 /**
+ * Turn a number of bytes into a human readable size
+ *
+ * For instance:
+ * - 1000 -> 1KB
+ * - 3745100 -> 3.745MB
+ *
  * @param {number} size the size in bytes
  * @returns {string} the formatted size
+ * @internal
  */
 export function formatSize(size: number): string {
   if (Number.isNaN(size) === true) {
@@ -12,31 +17,11 @@ export function formatSize(size: number): string {
   const abbreviations = ["bytes", "KB", "MB", "GB", "TB"]
 
   const index = Math.floor(Math.log(size) / Math.log(10 ** 3))
-  const amount = size / 1024 ** index
+  const amount = size / (1000 ** index)
 
-  return `${amount.toPrecision(3)} ${abbreviations[index]}`
-}
+  const amountStr = index === 0
+    ? `${amount}`
+    : `${amount.toPrecision(3)}`
 
-let patched = false
-
-export function monkeyPatchTruncate() {
-  if (patched) {
-    return
-  }
-
-  patched = true
-
-  const utils = require("cli-table3/src/utils")
-  const oldTruncate = utils.truncate
-
-  // TODO:
-  // We want to replace this truncation routine with something
-  // custom so we can control how and where truncation happens
-  utils.truncate = (str: string, desiredLength: number, truncateChar: string) => {
-    if (stripAnsi(str).length > desiredLength) {
-      str = `…${str.substr(-desiredLength + 2)}`
-    }
-
-    return oldTruncate(str, desiredLength, truncateChar)
-  }
+  return `${amountStr} ${abbreviations[index]}`
 }
