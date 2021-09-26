@@ -4,8 +4,6 @@ import { Configuration } from "./Configuration"
 
 /**
  * Represents the capabilities to read information about and write data to a console/terminal/etc…
- *
- * @public
  **/
 export interface ConsoleOutput {
   get width(): number

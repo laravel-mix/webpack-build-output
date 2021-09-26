@@ -6,28 +6,29 @@
   "typings": "./dist/webpack-build-output.d.ts",
   "scripts": {
     "test": "jest --runInBand",
-    "build:js": "rollup -c",
-    "build:types": "tsc --emitDeclarationOnly && api-extractor run --local --verbose",
-    "build": "pnpm run build:js && pnpm run build:types"
+    "build": "rollup -c"
   },
   "dependencies": {
-    "nanocolors": "^0.2.5",
-    "strip-ansi": "^6.0.0",
+    "nanocolors": "^0.2.6",
+    "strip-ansi": "^6.0.1",
     "table": "^6.7.1"
   },
   "peerDependencies": {
     "webpack": "^5.0"
   },
   "devDependencies": {
-    "@microsoft/api-extractor": "^7.18.11",
     "@rollup/plugin-typescript": "^8.2.5",
-    "@types/jest": "^27.0.1",
-    "@types/node": "^16.7.8",
-    "jest": "^27.1.0",
-    "rollup": "^2.56.3",
+    "@types/jest": "^27.0.2",
+    "@types/node": "^16.10.1",
+    "jest": "^27.2.2",
+    "prettier": "^2.4.1",
+    "pretty-quick": "^3.1.1",
+    "rollup": "^2.57.0",
+    "rollup-plugin-dts": "^4.0.0",
+    "rollup-plugin-prettier": "^2.2.0",
     "ts-jest": "^27.0.5",
     "tslib": "^2.3.1",
-    "typescript": "^4.4.2",
-    "webpack": "^5.0"
+    "typescript": "^4.4.3",
+    "webpack": "^5.54.0"
   }
 }

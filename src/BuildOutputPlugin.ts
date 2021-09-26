@@ -7,10 +7,9 @@ import { StatsTable } from "./StatsTable"
 
 /**
  * Add fancy a table to your webpack build output
- *
- * @public
  **/
 export class BuildOutputPlugin {
+  /** @internal */
   private configuration: Configuration
 
   /** @internal */
@@ -40,6 +39,7 @@ export class BuildOutputPlugin {
     compiler.hooks.done.tap("BuildOutputPlugin", (stats) => this.render(stats))
   }
 
+  /** @internal */
   private render(stats: Stats) {
     if (stats.hasErrors()) {
       return false
@@ -71,7 +71,8 @@ export class BuildOutputPlugin {
     }
   }
 
-private resolveConfig(options: Options, console?: ConsoleOutput) {
+  /** @internal */
+  private resolveConfig(options: Options, console?: ConsoleOutput) {
     const config = new Configuration(
       options,
       createColors(options.colors)
@@ -82,10 +83,12 @@ private resolveConfig(options: Options, console?: ConsoleOutput) {
     return config
   }
 
+  /** @internal */
   private get options() {
     return this.configuration.options
   }
 
+  /** @internal */
   private get console() {
     return this.configuration.console!
   }

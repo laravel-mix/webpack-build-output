@@ -1,7 +1,5 @@
 /**
  * Control what and how the table is written to the console
- *
- * @public
  **/
 export interface Options {
   /**

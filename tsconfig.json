@@ -4,11 +4,12 @@
     "lib": ["ES2019"],
     "module": "esnext",
     "declaration": true,
-    "declarationMap": true,
+    "declarationMap": false,
     "declarationDir": "dist",
     "strict": true,
     "esModuleInterop": true,
     "moduleResolution": "node",
+    "stripInternal": true,
     "outDir": "dist"
   },
   "include": [
