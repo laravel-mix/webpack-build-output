@@ -1,0 +1,40 @@
+name: Run tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    name: Build and test for ${{ matrix.os }} - ${{ matrix.node-version }}
+    runs-on: ${{ matrix.os }}
+    env:
+      CI: true
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [12.x, 16.x]
+        os: [ubuntu-latest, windows-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.15.1
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          cache: "pnpm"
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Run Tests
+        run: pnpm run test
