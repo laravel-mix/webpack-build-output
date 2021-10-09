@@ -5,7 +5,9 @@
   "license": "MIT",
   "typings": "./dist/webpack-build-output.d.ts",
   "scripts": {
-    "lint": "prettier -c ./src ./__tests__",
+    "lint:check": "prettier -c ./src ./__tests__",
+    "lint:fix": "prettier -w ./src ./__tests__",
+    "lint:staged": "pretty-quick --staged",
     "test": "jest --runInBand",
     "build": "rollup -c"
   },
@@ -27,9 +29,13 @@
     "rollup": "^2.57.0",
     "rollup-plugin-dts": "^4.0.0",
     "rollup-plugin-prettier": "^2.2.0",
+    "simple-git-hooks": "^2.6.1",
     "ts-jest": "^27.0.5",
     "tslib": "^2.3.1",
     "typescript": "^4.4.3",
     "webpack": "^5.54.0"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npm run lint:staged"
   }
 }

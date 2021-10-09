@@ -11,6 +11,7 @@ specifiers:
   rollup: ^2.57.0
   rollup-plugin-dts: ^4.0.0
   rollup-plugin-prettier: ^2.2.0
+  simple-git-hooks: ^2.6.1
   strip-ansi: ^6.0.1
   table: ^6.7.1
   ts-jest: ^27.0.5
@@ -33,6 +34,7 @@ devDependencies:
   rollup: 2.57.0
   rollup-plugin-dts: 4.0.0_rollup@2.57.0+typescript@4.4.3
   rollup-plugin-prettier: 2.2.0_prettier@2.4.1+rollup@2.57.0
+  simple-git-hooks: 2.6.1
   ts-jest: 27.0.5_1c26bd7af7c289ab64b4c561804bfe7c
   tslib: 2.3.1
   typescript: 4.4.3
@@ -2820,6 +2822,12 @@ packages:
 
   /signal-exit/3.0.4:
     resolution: {integrity: sha512-rqYhcAnZ6d/vTPGghdrw7iumdcbXpsk1b8IG/rz+VWV51DM0p7XCtMoJ3qhPLIbp3tvyt3pKRbaaEMZYpHto8Q==}
+    dev: true
+
+  /simple-git-hooks/2.6.1:
+    resolution: {integrity: sha512-nvqaNfgvcjN3cGSYJSdjwB+tP8YKRCyvuUvQ24luIjIpGhUCPpZDTJ+p+hcJiwc0lZlTCl0NayfBVDoIMG7Jpg==}
+    hasBin: true
+    requiresBuild: true
     dev: true
 
   /sisteransi/1.0.5:
