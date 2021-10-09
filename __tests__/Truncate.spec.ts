@@ -14,7 +14,7 @@ const table: Array<[input: string, output: string, options: TruncateOptions]> = 
 
 test("It can truncate strings", () => {
   for (const [input, output, options] of table) {
-    expect( truncate(input, options)).toBe(output)
+    expect(truncate(input, options)).toBe(output)
   }
 })
 

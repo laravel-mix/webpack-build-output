@@ -5,6 +5,7 @@
   "license": "MIT",
   "typings": "./dist/webpack-build-output.d.ts",
   "scripts": {
+    "lint": "prettier -c ./src ./__tests__",
     "test": "jest --runInBand",
     "build": "rollup -c"
   },

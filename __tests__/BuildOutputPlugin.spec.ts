@@ -18,19 +18,22 @@ test("Can use the build output plugin", async () => {
 
     plugins: [
       // Alter the stats seen by the build output plugin
-      plugin(compiler => {
+      plugin((compiler) => {
         compiler.hooks.done.tap("__tests__", (stats) => {
-          const now = +new Date
+          const now = +new Date()
           stats.compilation.startTime = now
-          stats.compilation.endTime = now+100
+          stats.compilation.endTime = now + 100
         })
       }),
 
-      new BuildOutputPlugin({
-        colors: false,
-        header: "result table",
-      }, console),
-    ]
+      new BuildOutputPlugin(
+        {
+          colors: false,
+          header: "result table",
+        },
+        console
+      ),
+    ],
   })
 
   expect(Object.keys(result.compilation.assets)).toContain("index.js")
