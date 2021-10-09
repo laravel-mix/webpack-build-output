@@ -1,15 +1,11 @@
 import path from "path"
 import { Compiler } from "webpack"
 import { BuildOutputPlugin } from "../src"
+import { BufferConsole } from "./BufferConsole"
 import { build } from "./helpers"
-import { Tty } from "./Tty"
 
 test("Can use the build output plugin", async () => {
-  process.stdout.columns = 80
-  process.stdout.rows = 80
-
-  // TODO: Use a custom buffering stream or console instead of capturing stdout
-  const tty = new Tty(process.stdout).capture()
+  const console = new BufferConsole(80, 80)
 
   const result = await build({
     entry: {
@@ -36,10 +32,10 @@ test("Can use the build output plugin", async () => {
       new BuildOutputPlugin({
         colors: false,
         header: "result table",
-      }),
+      }, console),
     ]
   })
 
   expect(Object.keys(result.compilation.assets)).toContain("index.js")
-  expect(tty.output).toMatchSnapshot()
+  expect(console.buffer).toMatchSnapshot()
 })
