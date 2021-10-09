@@ -22,7 +22,7 @@ pnpm install -D @laravel-mix/webpack-build-output
 In your webpack config, add the `BuildOutputPlugin` to the plugins list, and change the `stats` default settings:
 
 ```js
-const { BuildOutputPlugin } = require('webpack-build-output')
+const { BuildOutputPlugin } = require('@laravel-mix/webpack-build-output')
 
 module.exports = {
   stats: {
