@@ -29,6 +29,6 @@ test("Benchmark", () => {
   const usElapsed = (process.hrtime.bigint() - start) / BigInt(1_000)
   const usPerGroup = usElapsed / BigInt(table.length)
 
-  // 1000 calls to truncate shouldn't take more than 2 milliseconds on average
-  expect(usPerGroup).toBeLessThan(BigInt(2000))
+  // 1000 calls to truncate shouldn't take more than 4 milliseconds on average
+  expect(usPerGroup).toBeLessThan(BigInt(4000))
 })
