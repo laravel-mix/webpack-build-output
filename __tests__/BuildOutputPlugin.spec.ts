@@ -1,8 +1,7 @@
 import path from "path"
-import { Compiler } from "webpack"
-import { BuildOutputPlugin } from "../src"
-import { BufferConsole } from "./BufferConsole"
-import { build } from "./helpers"
+import { BuildOutputPlugin } from "../src/BuildOutputPlugin"
+import { BufferConsole } from "./utils/BufferConsole"
+import { build, plugin } from "./utils/Webpack"
 
 test("Can use the build output plugin", async () => {
   const console = new BufferConsole(80, 80)
@@ -19,15 +18,13 @@ test("Can use the build output plugin", async () => {
 
     plugins: [
       // Alter the stats seen by the build output plugin
-      {
-        apply(compiler: Compiler) {
-          compiler.hooks.done.tap("__tests__", (stats) => {
-            const now = +new Date
-            stats.compilation.startTime = now
-            stats.compilation.endTime = now+100
-          })
-        },
-      },
+      plugin(compiler => {
+        compiler.hooks.done.tap("__tests__", (stats) => {
+          const now = +new Date
+          stats.compilation.startTime = now
+          stats.compilation.endTime = now+100
+        })
+      }),
 
       new BuildOutputPlugin({
         colors: false,

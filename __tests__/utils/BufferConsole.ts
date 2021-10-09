@@ -1,4 +1,4 @@
-import { ConsoleOutput } from "../src/Console"
+import { ConsoleOutput } from "../../src/Console"
 
 interface Message {
   type: string

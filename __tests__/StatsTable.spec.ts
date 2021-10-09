@@ -1,6 +1,6 @@
-import { StatsAsset } from "webpack"
 import { StatsTable } from "../src/StatsTable"
-import { createFakeConfig } from "./Fake"
+import { createFakeConfig } from "./utils/Fake"
+import { asset } from "./utils/Webpack"
 
 test("The stats table renders as expected", () => {
   const table = new StatsTable(createFakeConfig())
@@ -55,17 +55,3 @@ test("The stats table can be given a maximum length", () => {
 
   expect(`\n${output}\n`).toMatchSnapshot()
 })
-
-function asset(asset: Partial<StatsAsset>): StatsAsset {
-  return {
-    name: "foo/foo/foo/foo/foo/foo/foo/js/app.js",
-    size: 1200,
-    related: [],
-    type: "test",
-    info: {},
-    emitted: false,
-    comparedForEmit: false,
-    cached: false,
-    ...asset,
-  }
-}
