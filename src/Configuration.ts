@@ -1,4 +1,4 @@
-import { Colors } from "nanocolors"
+import { Colors } from "picocolors/types"
 import { ConsoleOutput } from "./Console"
 import { Options } from "./Options"
 

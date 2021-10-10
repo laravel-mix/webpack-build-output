@@ -28,7 +28,7 @@ export default defineConfig([
         target: "es2018",
       }),
     ],
-    external: ["nanocolors", "table", "strip-ansi", "readline"],
+    external: ["picocolors", "table", "strip-ansi", "readline"],
   },
   {
     input: "./dist/index.d.ts",

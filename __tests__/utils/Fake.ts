@@ -1,4 +1,4 @@
-import { createColors } from "nanocolors"
+import { createColors } from "picocolors"
 import { Options } from "../../src/Options"
 import { Configuration } from "../../src/Configuration"
 import { ConsoleOutput } from "../../src/Console"

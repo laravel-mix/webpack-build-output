@@ -1,4 +1,4 @@
-import { createColors } from "nanocolors"
+import picocolors, { createColors } from "picocolors"
 import { Compiler, Stats } from "webpack"
 import { ConsoleOutput, Console } from "./Console"
 import { Configuration } from "./Configuration"
@@ -70,7 +70,8 @@ export class BuildOutputPlugin {
 
   /** @internal */
   private resolveConfig(options: Options, console?: ConsoleOutput) {
-    const config = new Configuration(options, createColors(options.colors))
+    const colors = options.colors === undefined ? picocolors : createColors(options.colors)
+    const config = new Configuration(options, colors)
 
     config.console = console ?? new Console(config, process.stdout)
 

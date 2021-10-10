@@ -21,7 +21,7 @@
     "build": "rollup -c"
   },
   "dependencies": {
-    "nanocolors": "^0.2.6",
+    "picocolors": "^0.2.1",
     "strip-ansi": "^6.0.1",
     "table": "^6.7.1"
   },
