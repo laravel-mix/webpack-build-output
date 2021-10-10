@@ -1,9 +1,18 @@
 {
   "name": "@laravel-mix/webpack-build-output",
   "version": "0.0.1",
-  "main": "dist/index.js",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "source": "./src/index.ts",
   "license": "MIT",
-  "typings": "./dist/webpack-build-output.d.ts",
   "scripts": {
     "lint:check": "prettier -c ./src ./__tests__",
     "lint:fix": "prettier -w ./src ./__tests__",
@@ -27,6 +36,7 @@
     "prettier": "^2.4.1",
     "pretty-quick": "^3.1.1",
     "rollup": "^2.57.0",
+    "rollup-plugin-delete": "^2.0.0",
     "rollup-plugin-dts": "^4.0.0",
     "rollup-plugin-prettier": "^2.2.0",
     "simple-git-hooks": "^2.6.1",
