@@ -13,6 +13,9 @@
   "types": "./dist/index.d.ts",
   "source": "./src/index.ts",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "lint:check": "prettier -c ./src ./__tests__",
     "lint:fix": "prettier -w ./src ./__tests__",
